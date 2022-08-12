@@ -64,7 +64,7 @@ const bt_alterar = (id)=>{
     setMostrar(false)
   })
 }
-const bt_ordenarProduto = (id)=>{
+/*const bt_ordenarProduto = (id)=>{
   const contatoShow = doc(database,"contato",id)
   getDocs(query(contato,orderBy("produto")))
   updateDoc(contatoShow,{
@@ -77,8 +77,15 @@ const bt_ordenarValidade = (id)=>{
   updateDoc(contatoShow,{
     produto: produto, validade: validade
   })
-}
+}*/
 
+const bt_filtro = (id)=>{
+  const contatoShow = doc(database,"contato",id)
+  getDocs(query(contato,orderBy("produto", "validade")))
+  updateDoc(contatoShow,{
+    produto: produto, validade: validade
+  })
+}
 
 // Rotina de Update fim
   return (
@@ -96,20 +103,11 @@ const bt_ordenarValidade = (id)=>{
       <></>
     )}
 
-{contatoLista.map((lista)=>{
-  return(
-    <div>
-      <input type="button" className='btn-outline-primary form-control' value="Ordenar por Produto" onClick={()=>bt_ordenarProduto(lista.id)} />
-      <input type="button" className='btn-outline-tertiary form-control' value="Ordenar por Validade" onClick={()=>bt_ordenarValidade(lista.id)} />
-    </div>
-  )
-})}
-
 
         <h3 className='text-center'>PRODUTOS</h3>
         {contatoLista.map((lista)=>{
           return(
-            <div className='card'>
+            <><div className='card'>
               <div className="card-header bg-dark text-light">{lista.produto}</div>
               <div className='card-body'>
               <p className='card-subtitle'>Validade: {lista.validade}</p>
@@ -124,6 +122,7 @@ const bt_ordenarValidade = (id)=>{
               </div>
               </div>
             </div>
+            </>
           )
         })}
 
